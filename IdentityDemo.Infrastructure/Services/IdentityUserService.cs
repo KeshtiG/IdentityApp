@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using IdentityDemo.Application.Dtos;
@@ -19,13 +20,35 @@ namespace IdentityDemo.Infrastructure.Services
     {
         public async Task<UserResultDto> CreateUserAsync(UserProfileDto user, string password)
         {
-            var result = await userManager.CreateAsync(new ApplicationUser
+            ApplicationUser userxxx = new ApplicationUser
             {
                 UserName = user.Email,
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName
-            }, password);
+            };
+            var result = await userManager.CreateAsync(userxxx, password);
+            
+            if (result.Succeeded)
+            {
+                result = await userManager.AddClaimsAsync(userxxx, [
+                new Claim("Department", "IT"),
+                new Claim("ShoeSize", "42")
+                ]);
+            }
+            //var result = await userManager.CreateAsync(new ApplicationUser
+            //{
+            //    UserName = user.Email,
+            //    Email = user.Email,
+            //    FirstName = user.FirstName,
+            //    LastName = user.LastName
+            //}, password);
+
+
+
+
+
+
             return new UserResultDto(result.Errors.FirstOrDefault()?.Description);
         }
 

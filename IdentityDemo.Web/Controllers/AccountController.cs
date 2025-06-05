@@ -17,6 +17,10 @@ public class AccountController(IUserService userService) : Controller
     [HttpGet("members")]
     public IActionResult Members()
     {
+        var shoeSize = User.Claims.FirstOrDefault();
+        var dep = User.Claims.FirstOrDefault(c => c.Type == "Department")?.Value ?? "Unknown";
+
+
         return View();
     }
 
