@@ -52,6 +52,11 @@ namespace IdentityDemo.Infrastructure.Services
             return new UserResultDto(result.Errors.FirstOrDefault()?.Description);
         }
 
+        //public Task<UserResultDto> LogoutAsync()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
         public async Task<UserResultDto> SignInAsync(string email, string password)
         {
             // Logga in
@@ -66,5 +71,13 @@ namespace IdentityDemo.Infrastructure.Services
 
             return new UserResultDto(result.Succeeded ? null : "Invalid user credentials");
         }
+
+        public async Task<UserResultDto> LogoutAsync()
+        {
+                        // Logga ut
+            await signInManager.SignOutAsync();
+            return new UserResultDto(null);
+        }
+    
     }
 }
