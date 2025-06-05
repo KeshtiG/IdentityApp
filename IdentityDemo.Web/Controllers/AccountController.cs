@@ -17,10 +17,12 @@ public class AccountController(IUserService userService) : Controller
     [HttpGet("members")]
     public IActionResult Members()
     {
-        var shoeSize = User.Claims.FirstOrDefault();
-        var dep = User.Claims.FirstOrDefault(c => c.Type == "Department")?.Value ?? "Unknown";
+        //var user = UserProfileDto.
 
-
+        new MembersVM()
+        {
+            
+        };
         return View();
     }
 
@@ -47,7 +49,7 @@ public class AccountController(IUserService userService) : Controller
         }
 
         // Redirect user
-        return RedirectToAction(nameof(Login));
+        return RedirectToAction(nameof(Members));
     }
 
     [HttpGet("login")]

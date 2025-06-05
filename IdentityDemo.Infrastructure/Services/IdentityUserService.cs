@@ -36,6 +36,12 @@ namespace IdentityDemo.Infrastructure.Services
                 new Claim("ShoeSize", "42")
                 ]);
             }
+
+            //if (result.Succeeded)
+            //    result = 
+            await SignInAsync(user.Email, password);
+
+
             //var result = await userManager.CreateAsync(new ApplicationUser
             //{
             //    UserName = user.Email,
@@ -43,11 +49,6 @@ namespace IdentityDemo.Infrastructure.Services
             //    FirstName = user.FirstName,
             //    LastName = user.LastName
             //}, password);
-
-
-
-
-
 
             return new UserResultDto(result.Errors.FirstOrDefault()?.Description);
         }
