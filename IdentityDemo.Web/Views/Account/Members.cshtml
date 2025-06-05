@@ -2,7 +2,9 @@
 @if (User.Identity!.IsAuthenticated)
 {
     <p>
-        Welcome <strong>@User.Identity!.Name</strong>!
+        Welcome <strong>@User.Identity!.Name</strong>!<br />
+        Department: @User.Claims.FirstOrDefault(c => c.Type == "Department")?.Value <br />
+        Shoesize: @User.Claims.FirstOrDefault(c => c.Type == "ShoeSize")?.Value <br />
     </p>
 }
 else
